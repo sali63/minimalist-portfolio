@@ -6,6 +6,7 @@ import SecondaryButton from '../components/SecondaryButton';
 
 import { data } from '../data';
 import { promises as fs } from 'fs';
+// import path from 'path';
 
 import { arrToObject, useWindowSize } from './../lib/lib';
 
@@ -179,11 +180,13 @@ export async function getStaticProps() {
   const allDevicesImages = devices.map(async (device) => {
     // const homepageDirectory = path.join(
     //   process.cwd(),
-    //   `public/images/homepage/${device}`
+    //   `public\\images\\homepage\\${device}`
     // );
-    const homepageDirectoryTest = `${process.cwd()}\\public\\images\\homepage\\${device}`;
+    const currDir = process.cwd().replace(/\\/g, '/');
 
-    // console.log('Test', homepageDirectoryTest);
+    const homepageDirectoryTest = `${currDir}/public/images/homepage/${device}`;
+
+    console.log('Test', homepageDirectoryTest);
     // console.log('Real', homepageDirectory);
 
     // const filenames = await fs.readdir(homepageDirectory, 'utf8');
@@ -191,14 +194,15 @@ export async function getStaticProps() {
 
     const imageData = filenames.map(async (filename) => {
       // const filePath = path.join(homepageDirectory, filename);
-      const filePath = homepageDirectoryTest + '\\' + filename;
+      const filePath = homepageDirectoryTest + '/' + filename;
       const dimensions = await sizeOf(filePath);
 
-      const imageRelativeDir = /\\images.*/gi
+      // const imageRelativeDir = /\\images.*/gi
+      const imageRelativeDir = /\/images.*/gi
         // .exec(homepageDirectory)
         .exec(homepageDirectoryTest)
-        .join()
-        .replace(/\\/g, '/');
+        .join();
+      // .replace(/\\/g, '/');
 
       const imageRelativePath = `${imageRelativeDir}/${filename}`;
       const filenameShort = filename.match(/\w+@?\w+(?=\.)/gi).join();
