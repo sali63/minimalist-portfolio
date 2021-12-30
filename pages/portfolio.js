@@ -49,7 +49,9 @@ export async function getStaticProps() {
     //   `public/images/portfolio/${device}`
     // );
 
-    const portfolioDirectoryTest = `${process.cwd()}\\public\\images\\portfolio\\${device}`;
+    const currDir = process.cwd().replace(/\\/g, '/');
+
+    const portfolioDirectoryTest = `${currDir}/public/images/portfolio/${device}`;
 
     // let filenames = await fs.readdir(portfolioDirectory);
     let filenames = await fs.readdir(portfolioDirectoryTest);
@@ -58,14 +60,14 @@ export async function getStaticProps() {
 
     const imageData = filenames.map(async (filename) => {
       // const filePath = path.join(portfolioDirectory, filename);
-      const filePath = portfolioDirectoryTest + '\\' + filename;
+      const filePath = portfolioDirectoryTest + '/' + filename;
       const dimensions = await sizeOf(filePath);
 
-      const imageRelativeDir = /\\images.*/gi
+      const imageRelativeDir = /\/images.*/gi
         // .exec(portfolioDirectory)
         .exec(portfolioDirectoryTest)
-        .join()
-        .replace(/\\/g, '/');
+        .join();
+      // .replace(/\\/g, '/');
 
       const imageRelativePath = `${imageRelativeDir}/${filename}`;
       const filenameShort = filename.match(/\w+@?\w+(?=\.)/gi).join();
