@@ -6,7 +6,7 @@ import SecondaryButton from '../components/SecondaryButton';
 
 import { data } from '../data';
 import { promises as fs } from 'fs';
-import path from 'path';
+// import path from 'path';
 
 import { arrToObject, useWindowSize } from './../lib/lib';
 
@@ -171,6 +171,10 @@ export default function Home({ images }) {
 }
 
 export async function getStaticProps() {
+  // import { promises as fs } from 'fs';
+  // import path from 'path';
+
+  const path = require('path');
   //Get all images for this page for all devices in the devices array
   const sizeOf = require('image-size');
   const devices = ['mobile', 'tablet', 'desktop'];
