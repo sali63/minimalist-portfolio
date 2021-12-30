@@ -6,7 +6,6 @@ import SecondaryButton from '../components/SecondaryButton';
 
 import { data } from '../data';
 import { promises as fs } from 'fs';
-// import path from 'path';
 
 import { arrToObject, useWindowSize } from './../lib/lib';
 
@@ -16,7 +15,7 @@ import _ from 'lodash';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function Home({ images }) {
+const Home = ({ images }) => {
   const [homePage] = data.pages.filter((page) => page.name === 'home');
   const { name: pageName, intro, opening } = homePage;
 
@@ -168,13 +167,11 @@ export default function Home({ images }) {
       </Layout>
     </>
   );
-}
+};
+
+export default Home;
 
 export async function getStaticProps() {
-  // import { promises as fs } from 'fs';
-  // import path from 'path';
-
-  // const path = require('path');
   //Get all images for this page for all devices in the devices array
   const sizeOf = require('image-size');
   const devices = ['mobile', 'tablet', 'desktop'];

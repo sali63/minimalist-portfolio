@@ -3,13 +3,12 @@ import Layout from './../components/Layout';
 import Head from 'next/head';
 
 import { promises as fs } from 'fs';
-// import path from 'path';
 
 import { data } from '../data';
 import { arrToObject } from '../lib/lib';
 import ProjectBlock from './../components/ProjectBlock';
 
-export default function Portfolio({ portfolioImages }) {
+const Portfolio = ({ portfolioImages }) => {
   const [portfolioPage] = data.pages.filter(
     (page) => page.name === 'portfolio'
   );
@@ -35,7 +34,9 @@ export default function Portfolio({ portfolioImages }) {
       </Layout>
     </>
   );
-}
+};
+
+export default Portfolio;
 
 export async function getStaticProps() {
   //Get all images for this page for all devices in the devices array
