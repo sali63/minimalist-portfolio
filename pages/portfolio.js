@@ -3,7 +3,7 @@ import Layout from './../components/Layout';
 import Head from 'next/head';
 
 import { promises as fs } from 'fs';
-import path from 'path';
+// import path from 'path';
 
 import { data } from '../data';
 import { arrToObject } from '../lib/lib';
@@ -43,20 +43,26 @@ export async function getStaticProps() {
   const devices = ['mobile', 'tablet', 'desktop'];
 
   const allDevicesImages = devices.map(async (device) => {
-    const portfolioDirectory = path.join(
-      process.cwd(),
-      `public/images/portfolio/${device}`
-    );
-    let filenames = await fs.readdir(portfolioDirectory);
+    // const portfolioDirectory = path.join(
+    //   process.cwd(),
+    //   `public/images/portfolio/${device}`
+    // );
+
+    const portfolioDirectoryTest = `${process.cwd()}\\public\\images\\portfolio\\${device}`;
+
+    // let filenames = await fs.readdir(portfolioDirectory);
+    let filenames = await fs.readdir(portfolioDirectoryTest);
 
     // filenames = filenames.filter((filename) => !filename.includes('@'));
 
     const imageData = filenames.map(async (filename) => {
-      const filePath = path.join(portfolioDirectory, filename);
+      // const filePath = path.join(portfolioDirectory, filename);
+      const filePath = portfolioDirectoryTest + '\\' + filename;
       const dimensions = await sizeOf(filePath);
 
       const imageRelativeDir = /\\images.*/gi
-        .exec(portfolioDirectory)
+        // .exec(portfolioDirectory)
+        .exec(portfolioDirectoryTest)
         .join()
         .replace(/\\/g, '/');
 

@@ -174,24 +174,32 @@ export async function getStaticProps() {
   // import { promises as fs } from 'fs';
   // import path from 'path';
 
-  const path = require('path');
+  // const path = require('path');
   //Get all images for this page for all devices in the devices array
   const sizeOf = require('image-size');
   const devices = ['mobile', 'tablet', 'desktop'];
 
   const allDevicesImages = devices.map(async (device) => {
-    const homepageDirectory = path.join(
-      process.cwd(),
-      `public/images/homepage/${device}`
-    );
-    const filenames = await fs.readdir(homepageDirectory, 'utf8');
+    // const homepageDirectory = path.join(
+    //   process.cwd(),
+    //   `public/images/homepage/${device}`
+    // );
+    const homepageDirectoryTest = `${process.cwd()}\\public\\images\\homepage\\${device}`;
+
+    // console.log('Test', homepageDirectoryTest);
+    // console.log('Real', homepageDirectory);
+
+    // const filenames = await fs.readdir(homepageDirectory, 'utf8');
+    const filenames = await fs.readdir(homepageDirectoryTest, 'utf8');
 
     const imageData = filenames.map(async (filename) => {
-      const filePath = path.join(homepageDirectory, filename);
+      // const filePath = path.join(homepageDirectory, filename);
+      const filePath = homepageDirectoryTest + '\\' + filename;
       const dimensions = await sizeOf(filePath);
 
       const imageRelativeDir = /\\images.*/gi
-        .exec(homepageDirectory)
+        // .exec(homepageDirectory)
+        .exec(homepageDirectoryTest)
         .join()
         .replace(/\\/g, '/');
 
